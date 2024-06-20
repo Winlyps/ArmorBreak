@@ -4,6 +4,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.Damageable;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -28,10 +30,21 @@ public final class ArmorBreak extends JavaPlugin {
     }
 
     private void decreaseArmorDurability(Player player) {
-        for (ItemStack armor : player.getInventory().getArmorContents()) {
+        ItemStack[] armorContents = player.getInventory().getArmorContents();
+        for (int i = 0; i < armorContents.length; i++) {
+            ItemStack armor = armorContents[i];
             if (armor != null && armor.getType() != Material.AIR) {
-                armor.setDurability((short) (armor.getDurability() + 1));
+                ItemMeta meta = armor.getItemMeta();
+                if (meta instanceof Damageable) {
+                    Damageable damageable = (Damageable) meta;
+                    damageable.setDamage(damageable.getDamage() + 1);
+                    armor.setItemMeta(meta);
+                    if (damageable.getDamage() >= armor.getType().getMaxDurability()) {
+                        armorContents[i] = new ItemStack(Material.AIR);
+                    }
+                }
             }
         }
+        player.getInventory().setArmorContents(armorContents);
     }
 }
