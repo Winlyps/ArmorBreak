@@ -1,5 +1,4 @@
-name: CustomDurability
+name: ArmorBreak
 version: '${version}'
-main: winlyps.customdurability.CustomDurability
+main: winlyps.customdurability.ArmorBreak
 api-version: '1.20'
-

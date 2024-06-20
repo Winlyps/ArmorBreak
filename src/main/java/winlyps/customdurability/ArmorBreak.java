@@ -7,7 +7,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
-public final class CustomDurability extends JavaPlugin {
+public final class ArmorBreak extends JavaPlugin {
 
     @Override
     public void onEnable() {
