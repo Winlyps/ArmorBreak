@@ -1,0 +1,5 @@
+name: CustomDurability
+version: '${version}'
+main: winlyps.customdurability.CustomDurability
+api-version: '1.20'
+
